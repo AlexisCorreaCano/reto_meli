@@ -14,3 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "reto_meli"
 include ':app'
+include ':domain'
+include ':infrastructure'
