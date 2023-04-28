@@ -1,6 +1,6 @@
 package com.alexis.domain.model;
 
 public class ValueStruct {
-    public int number;
+    public double number;
     public String unit;
 }

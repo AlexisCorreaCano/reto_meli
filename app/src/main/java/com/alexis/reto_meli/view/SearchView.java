@@ -1,10 +1,13 @@
 package com.alexis.reto_meli.view;
 
 import com.alexis.domain.model.ResponseModel;
+import com.alexis.domain.model.Result;
+
+import java.util.ArrayList;
 
 public interface SearchView {
     void showLoading();
     void hideLoading();
     void showError();
-    void showData(ResponseModel responseModel);
+    void showData(ArrayList<Result> result);
 }

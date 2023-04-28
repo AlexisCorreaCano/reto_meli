@@ -26,7 +26,7 @@ public class SearchApi implements SearchRepository {
             searchService.getItems(item).enqueue(new Callback<ResponseModel>() {
                 @Override
                 public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                    onSuccess.accept(new ResponseModel());
+                    onSuccess.accept(response.body());
                 }
 
                 @Override

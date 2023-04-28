@@ -7,7 +7,7 @@ public class ResponseModel {
     public String country_default_time_zone;
     public String query;
     public Paging paging;
-    public ArrayList<Object> results;
+    public ArrayList<Result> results;
     public Sort sort;
     public ArrayList<AvailableSort> available_sorts;
     public ArrayList<Filter> filters;
