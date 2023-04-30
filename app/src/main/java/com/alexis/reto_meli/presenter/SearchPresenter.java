@@ -3,18 +3,20 @@ package com.alexis.reto_meli.presenter;
 import com.alexis.domain.usecase.SearchUseCase;
 import com.alexis.reto_meli.view.SearchView;
 
+import javax.inject.Inject;
+
 
 public class SearchPresenter {
     private final SearchUseCase searchUseCase;
-    private final SearchView searchView;
-
-    public SearchPresenter(SearchUseCase searchUseCase, SearchView searchView) {
+    private SearchView searchView;
+    @Inject
+    public SearchPresenter(SearchUseCase searchUseCase) {
         this.searchUseCase = searchUseCase;
         this.searchView = searchView;
     }
 
-    public void setView(){
-
+    public void setView(SearchView searchView){
+        this.searchView = searchView;
     }
 
     public void searchItem(String item){

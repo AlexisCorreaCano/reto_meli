@@ -18,17 +18,24 @@ import com.alexis.reto_meli.view.adapter.ItemsAdapter;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity implements SearchView, View.OnClickListener {
 
     private Button btn_search;
     private EditText et_search;
     private RecyclerView rv_list_item;
     private ItemsAdapter itemsAdapter;
+    @Inject
+    SearchPresenter searchPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        searchPresenter.setView(this);
         loadData();
         loadEvent();
     }
@@ -68,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements SearchView, View.
 
     @Override
     public void onClick(View v) {
-        SearchPresenter presenter = new SearchPresenter(new SearchUseCase(new SearchApi()), this);
-        presenter.searchItem(et_search.getText().toString());
+        searchPresenter.searchItem(et_search.getText().toString());
     }
 }
