@@ -3,6 +3,7 @@ package com.alexis.reto_meli.presenter;
 import com.alexis.domain.usecase.SearchUseCase;
 import com.alexis.reto_meli.view.SearchView;
 
+
 public class SearchPresenter {
     private final SearchUseCase searchUseCase;
     private final SearchView searchView;
