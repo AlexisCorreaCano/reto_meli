@@ -37,7 +37,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         holder.tv_title.setText(results.get(position).title);
         holder.tv_price.setText(Double.toString(results.get(position).price));
         holder.tv_credit.setText("en "+results.get(position).installments.quantity+"X $"+results.get(position).installments.amount);
-        Picasso.get().load(results.get(position).thumbnail).into(holder.im_item);
+        Picasso.get().load(results.get(position).thumbnail).placeholder(R.drawable.imagen)
+                .error(R.drawable.error).into(holder.im_item);
         holder.bind(results.get(position),listener);
 
     }

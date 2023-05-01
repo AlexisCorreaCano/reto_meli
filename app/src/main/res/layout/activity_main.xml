@@ -25,14 +25,9 @@
 
         <EditText
             android:id="@+id/et_search"
+            android:imeOptions="actionSearch"
             android:layout_width="300dp"
             android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/btn_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Buscar" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

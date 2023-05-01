@@ -1,11 +1,16 @@
 package com.alexis.reto_meli.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +35,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity implements SearchView, View.OnClickListener {
 
-    private Button btn_search;
     private EditText et_search;
     private RecyclerView rv_list_item;
     private ItemsAdapter itemsAdapter;
@@ -46,17 +50,43 @@ public class MainActivity extends AppCompatActivity implements SearchView, View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         searchPresenter.setView(this);
-        loadElements();
+        loadView();
         loadEvent();
     }
 
     private void loadEvent() {
-        btn_search.setOnClickListener(this);
+        rv_list_item.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState == 1){
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (inputMethodManager != null && getCurrentFocus() != null) {
+                        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    }
+                }
+            }
 
+        });
+        et_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if(event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
+                    searchPresenter.searchItem(v.getText().toString());
+                    handled = true;
+
+                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (inputMethodManager != null && getCurrentFocus() != null) {
+                        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    }
+                }
+                return handled;
+            }
+        });
     }
 
-    private void loadElements() {
-        btn_search = findViewById(R.id.btn_search);
+    private void loadView() {
         et_search=findViewById(R.id.et_search);
         rv_list_item=findViewById(R.id.rv_list_item);
         progressBar = findViewById(R.id.progress_bar);

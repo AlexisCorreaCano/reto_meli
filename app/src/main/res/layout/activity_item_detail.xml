@@ -15,12 +15,10 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/tv_sold_item"
-                android:text="200 vendido"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/tv_title"
-                android:text="titulo del prodcuto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <ImageView
@@ -29,12 +27,10 @@
                 android:layout_height="200dp"/>
             <TextView
                 android:id="@+id/tv_price"
-                android:text="$ 200.000"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/tv_free_shipping"
-                android:text="Envío gratis a nivel nacional"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <LinearLayout
@@ -47,24 +43,17 @@
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:id="@+id/tv_seller"
-                    android:text="Nombre del vendedor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/tv_sold_seller"
-                android:text="+500 ventas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/tv_available_quantity"
-                android:text="20 disponibles"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
-
-
-
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
