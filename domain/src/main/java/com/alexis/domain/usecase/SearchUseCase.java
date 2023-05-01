@@ -11,8 +11,12 @@ public class SearchUseCase {
     public SearchUseCase(SearchRepository searchRepository) {
         this.searchRepository = searchRepository;
     }
+    public void searchItem(String item, Consumer<ResponseModel> onSuccess, Consumer<Throwable> onError)  {
 
-    public void searchItem(String item, Consumer<ResponseModel> onSuccess, Consumer<Throwable> onError){
+        if(item.isEmpty()){
+            throw new RuntimeException("el artículo a buscar no debe de ser vacío");
+        }
+
         searchRepository.searchItem(item,onSuccess,onError);
     }
 }

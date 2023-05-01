@@ -15,8 +15,8 @@ public class SearchApi implements SearchRepository {
     private final Retrofit retrofit;
     private final SearchService searchService;
 
-    public SearchApi() {
-        this.retrofit = new Retrofit.Builder().baseUrl("https://api.mercadolibre.com").addConverterFactory(GsonConverterFactory.create()).build();
+    public SearchApi(String url) {
+        this.retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
         this.searchService = retrofit.create(SearchService.class);
     }
 
@@ -26,17 +26,26 @@ public class SearchApi implements SearchRepository {
             searchService.getItems(item).enqueue(new Callback<ResponseModel>() {
                 @Override
                 public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
-                    onSuccess.accept(response.body());
-                }
+                    switch (response.code()){
+                        case 404:
+                            onError.accept(new Exception("No se encontró el recurso solicitado"));
+                            break;
+                        case 200:
+                            onSuccess.accept(response.body());
+                            break;
+                        default:
+                            onError.accept(new Exception("Hubo un error al obtener la información\n"));
+                            break;
+                    }
 
+                }
                 @Override
                 public void onFailure(Call<ResponseModel> call, Throwable t) {
                     onError.accept(t);
                 }
             });
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            onError.accept(e);
         }
-
     }
 }

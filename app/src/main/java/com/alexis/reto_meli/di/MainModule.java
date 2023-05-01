@@ -15,7 +15,7 @@ public class MainModule {
 
     @Provides
     SearchRepository provideSearchRepository(){
-        return new SearchApi();
+        return new SearchApi("https://api.mercadolibre.com");
     }
 
     @Provides

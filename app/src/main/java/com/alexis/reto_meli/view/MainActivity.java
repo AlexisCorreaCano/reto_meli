@@ -1,13 +1,13 @@
 package com.alexis.reto_meli.view;
 
+import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,7 +25,6 @@ import com.alexis.reto_meli.view.adapter.OnItemClickListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -35,16 +34,15 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity implements SearchView, View.OnClickListener {
 
+    Gson gson = new Gson();
+    @Inject
+    SearchPresenter searchPresenter;
     private EditText et_search;
     private RecyclerView rv_list_item;
     private ItemsAdapter itemsAdapter;
     private ProgressBar progressBar;
-
     private ArrayList<Result> results;
-    Gson gson = new Gson();
 
-    @Inject
-    SearchPresenter searchPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,11 +57,8 @@ public class MainActivity extends AppCompatActivity implements SearchView, View.
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if(newState == 1){
-                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    if (inputMethodManager != null && getCurrentFocus() != null) {
-                        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-                    }
+                if(newState == SCROLL_STATE_DRAGGING){
+                    hideKeyboard();
                 }
             }
 
@@ -76,16 +71,18 @@ public class MainActivity extends AppCompatActivity implements SearchView, View.
                     searchPresenter.searchItem(v.getText().toString());
                     handled = true;
 
-                    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    if (inputMethodManager != null && getCurrentFocus() != null) {
-                        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-                    }
+                    hideKeyboard();
                 }
                 return handled;
             }
         });
     }
-
+    private void hideKeyboard(){
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager != null && getCurrentFocus() != null) {
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+    }
     private void loadView() {
         et_search=findViewById(R.id.et_search);
         rv_list_item=findViewById(R.id.rv_list_item);

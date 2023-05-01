@@ -28,9 +28,15 @@ android {
 
 dependencies {
 
-   implementation project(path: ':domain')
+    //own
+    implementation project(path: ':domain')
 
+    //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+
+    //teste
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:3.3.3'
 
 }
