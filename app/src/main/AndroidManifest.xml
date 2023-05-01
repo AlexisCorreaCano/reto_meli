@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Reto_meli"
         tools:targetApi="31">
         <activity
+            android:name=".view.ItemDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
