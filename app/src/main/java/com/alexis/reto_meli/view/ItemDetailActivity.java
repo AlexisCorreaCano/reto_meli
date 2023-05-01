@@ -27,8 +27,13 @@ public class ItemDetailActivity extends AppCompatActivity {
         Gson gson = new Gson();
         result = gson.fromJson(json, Result.class);
 
-        loadView();
-        loadData();
+        try {
+            loadView();
+            loadData();
+        }catch (Exception e){
+            showError("En el momento nuestra aplicación está teniendo problemas, por favor intenta más tarde");
+        }
+
     }
 
     private void loadData() {
@@ -54,5 +59,9 @@ public class ItemDetailActivity extends AppCompatActivity {
         tv_seller = findViewById(R.id.tv_seller);
         tv_sold_seller = findViewById(R.id.tv_sold_seller);
         tv_avalible_quantity = findViewById(R.id.tv_available_quantity);
+    }
+
+    private void showError(String message){
+
     }
 }

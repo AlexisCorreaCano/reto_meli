@@ -4,15 +4,20 @@ import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -101,8 +106,25 @@ public class MainActivity extends AppCompatActivity implements SearchView, View.
     }
 
     @Override
-    public void showError() {
+    public void showError(String error) {
+        hideLoading();
+        View alertCustomView = LayoutInflater.from(MainActivity.this).inflate(R.layout.custom_alert_view,null);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
 
+        alertDialog.setView(alertCustomView);
+        Button btn_close = (Button) alertCustomView.findViewById(R.id.btn_close);
+
+        final AlertDialog dialog = alertDialog.create();
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        btn_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
     }
 
     @Override

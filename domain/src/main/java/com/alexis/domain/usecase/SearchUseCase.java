@@ -2,6 +2,7 @@ package com.alexis.domain.usecase;
 
 import com.alexis.domain.model.ResponseModel;
 import com.alexis.domain.repository.SearchRepository;
+import com.alexis.domain.shared.BusinessException;
 
 import java.util.function.Consumer;
 
@@ -14,7 +15,7 @@ public class SearchUseCase {
     public void searchItem(String item, Consumer<ResponseModel> onSuccess, Consumer<Throwable> onError)  {
 
         if(item.isEmpty()){
-            throw new RuntimeException("el artículo a buscar no debe de ser vacío");
+            throw new BusinessException(BusinessException.MESSAGE_ITEM_EMPTY_OR_NULL);
         }
 
         searchRepository.searchItem(item,onSuccess,onError);

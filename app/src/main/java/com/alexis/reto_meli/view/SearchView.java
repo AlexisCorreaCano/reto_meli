@@ -8,6 +8,6 @@ import java.util.ArrayList;
 public interface SearchView {
     void showLoading();
     void hideLoading();
-    void showError();
+    void showError(String message);
     void showData(ArrayList<Result> result);
 }
