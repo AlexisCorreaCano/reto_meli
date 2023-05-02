@@ -18,12 +18,15 @@ import android.widget.TextView;
 import com.alexis.domain.model.Result;
 import com.alexis.reto_meli.R;
 import com.alexis.reto_meli.view.adapter.itemdetail.AttributesAdapter;
+import com.alexis.reto_meli.view.builder.ErrorAlertBuild;
 import com.google.gson.Gson;
 import com.microsoft.appcenter.crashes.Crashes;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+
+import javax.inject.Inject;
 
 public class ItemDetailActivity extends AppCompatActivity {
     private ImageView iv_image;
@@ -38,6 +41,8 @@ public class ItemDetailActivity extends AppCompatActivity {
     private TextView tv_offer;
     private ListView lv_attributes;
     private Result result;
+    @Inject
+    ErrorAlertBuild errorAlertBuild;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,23 +113,6 @@ public class ItemDetailActivity extends AppCompatActivity {
     }
 
     private void showError(String message){
-        View alertCustomView = LayoutInflater.from(ItemDetailActivity.this).inflate(R.layout.custom_alert_view,null);
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(ItemDetailActivity.this);
-        TextView tv_error_message = alertCustomView.findViewById(R.id.tv_error_message);
-        tv_error_message.setText(message);
-        alertDialog.setView(alertCustomView);
-        Button btn_close = (Button) alertCustomView.findViewById(R.id.btn_close);
-
-        final AlertDialog dialog = alertDialog.create();
-
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
-
-        btn_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.cancel();
-            }
-        });
+         errorAlertBuild.buildAlert(this,message).show();;
     }
 }

@@ -28,6 +28,7 @@ import com.alexis.reto_meli.R;
 import com.alexis.reto_meli.presenter.SearchPresenter;
 import com.alexis.reto_meli.view.adapter.search.ItemsAdapter;
 import com.alexis.reto_meli.view.adapter.search.OnItemClickListener;
+import com.alexis.reto_meli.view.builder.ErrorAlertBuild;
 import com.alexis.reto_meli.view.itemdetail.ItemDetailActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -50,6 +51,8 @@ public class SearchActivity extends AppCompatActivity implements SearchView, Vie
     private ProgressBar progressBar;
     private ArrayList<Result> results;
     private LinearLayout containerNoFound;
+    @Inject
+    ErrorAlertBuild errorAlertBuild;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,25 +76,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView, Vie
     @Override
     public void showError(String error) {
         hideLoading();
-        View alertCustomView = LayoutInflater.from(SearchActivity.this).inflate(R.layout.custom_alert_view,null);
-        TextView tv_error_message = alertCustomView.findViewById(R.id.tv_error_message);
-        tv_error_message.setText(error);
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(SearchActivity.this);
-
-        alertDialog.setView(alertCustomView);
-        Button btn_close = (Button) alertCustomView.findViewById(R.id.btn_close);
-
-        final AlertDialog dialog = alertDialog.create();
-
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
-
-        btn_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.cancel();
-            }
-        });
+        errorAlertBuild.buildAlert(this,error).show();
     }
 
     @Override
