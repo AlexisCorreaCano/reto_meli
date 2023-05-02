@@ -23,7 +23,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
     private final OnItemClickListener listener;
 
     public ItemsAdapter(ArrayList<Result> results, OnItemClickListener listener){
-
         this.results = results;
         this.listener = listener;
     }
@@ -58,10 +57,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
 
         String creditFormat = numberFormat.format(results.get(position).installments.amount);
         holder.tv_credit.setText(String.format("en %dx $ %s",results.get(position).installments.quantity,creditFormat));
-
         holder.tv_free_shipping.setVisibility(results.get(position).shipping.free_shipping?View.VISIBLE:View.GONE);
-
-
         holder.bind(results.get(position),listener);
 
     }
@@ -81,7 +77,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
 
         public ItemViewHolder(View view){
             super(view);
-
             tv_title = view.findViewById(R.id.tv_title);
             tv_price = view.findViewById(R.id.tv_price);
             tv_offer =view.findViewById(R.id.tv_offer);
@@ -91,7 +86,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         }
 
         public void bind(final Result item, final OnItemClickListener listener) {
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     listener.onItemClick(item);

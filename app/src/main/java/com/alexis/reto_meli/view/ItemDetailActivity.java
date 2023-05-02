@@ -1,11 +1,16 @@
 package com.alexis.reto_meli.view;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -50,10 +55,8 @@ public class ItemDetailActivity extends AppCompatActivity {
     private void loadData() {
         NumberFormat numberFormat = new DecimalFormat("#,###");
 
-
         tv_sold_item.setText(String.format("%d Vendidos",result.sold_quantity));
         tv_title.setText(result.title);
-
 
         Picasso.get().load(result.thumbnail)
                 .placeholder(R.drawable.imagen)
@@ -74,6 +77,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                 tv_offer.setVisibility(View.VISIBLE);
             }
         }
+
         String price = String.format("$ %s",numberFormat.format((Double)result.price));
         tv_price.setText(price);
         tv_free_shipping.setVisibility(result.shipping.free_shipping == true? View.VISIBLE:View.GONE);
@@ -96,6 +100,22 @@ public class ItemDetailActivity extends AppCompatActivity {
     }
 
     private void showError(String message){
+        View alertCustomView = LayoutInflater.from(ItemDetailActivity.this).inflate(R.layout.custom_alert_view,null);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(ItemDetailActivity.this);
 
+        alertDialog.setView(alertCustomView);
+        Button btn_close = (Button) alertCustomView.findViewById(R.id.btn_close);
+
+        final AlertDialog dialog = alertDialog.create();
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        btn_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
     }
 }

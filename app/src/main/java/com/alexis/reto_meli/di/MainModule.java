@@ -12,7 +12,6 @@ import dagger.hilt.components.SingletonComponent;
 @Module
 @InstallIn(SingletonComponent.class)
 public class MainModule {
-
     @Provides
     SearchRepository provideSearchRepository(){
         return new SearchApi("https://api.mercadolibre.com");
@@ -22,5 +21,4 @@ public class MainModule {
     SearchUseCase provideSearchUseCase(SearchRepository searchRepository){
         return new SearchUseCase(searchRepository);
     }
-
 }

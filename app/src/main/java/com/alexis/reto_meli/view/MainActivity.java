@@ -40,7 +40,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity implements SearchView, View.OnClickListener {
 
-    Gson gson = new Gson();
+    private final Gson gson = new Gson();
     @Inject
     SearchPresenter searchPresenter;
     private EditText et_search;
@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements SearchView, View.
     private ItemsAdapter itemsAdapter;
     private ProgressBar progressBar;
     private ArrayList<Result> results;
-
     private LinearLayout containerNoFound;
 
     @Override
@@ -58,46 +57,6 @@ public class MainActivity extends AppCompatActivity implements SearchView, View.
         searchPresenter.setView(this);
         loadView();
         loadEvent();
-    }
-
-    private void loadEvent() {
-        rv_list_item.addOnScrollListener(new RecyclerView.OnScrollListener(){
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if(newState == SCROLL_STATE_DRAGGING){
-                    hideKeyboard();
-                }
-            }
-
-        });
-        et_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if(actionId == 3 || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER ) ){
-                    containerNoFound.setVisibility(View.GONE);
-                    searchPresenter.searchItem(v.getText().toString());
-                    handled = true;
-
-                    hideKeyboard();
-                }
-                return handled;
-            }
-        });
-    }
-    private void hideKeyboard(){
-        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (inputMethodManager != null && getCurrentFocus() != null) {
-            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-        }
-    }
-    private void loadView() {
-        et_search=findViewById(R.id.et_search);
-        rv_list_item=findViewById(R.id.rv_list_item);
-        progressBar = findViewById(R.id.progress_bar);
-        containerNoFound = findViewById(R.id.container_no_foud);
-        progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -175,5 +134,44 @@ public class MainActivity extends AppCompatActivity implements SearchView, View.
         results =  gson.fromJson(jsonResult, new TypeToken<ArrayList<Result>>(){}.getType());
         showData(results);
         rv_list_item.getLayoutManager().onRestoreInstanceState(savedInstanceState.getParcelable("list"));
+    }
+
+    private void loadEvent() {
+        rv_list_item.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState == SCROLL_STATE_DRAGGING){
+                    hideKeyboard();
+                }
+            }
+
+        });
+        et_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if(actionId == 3 || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER ) ){
+                    containerNoFound.setVisibility(View.GONE);
+                    searchPresenter.searchItem(v.getText().toString());
+                    handled = true;
+                    hideKeyboard();
+                }
+                return handled;
+            }
+        });
+    }
+    private void hideKeyboard(){
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputMethodManager != null && getCurrentFocus() != null) {
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+    }
+    private void loadView() {
+        et_search=findViewById(R.id.et_search);
+        rv_list_item=findViewById(R.id.rv_list_item);
+        progressBar = findViewById(R.id.progress_bar);
+        containerNoFound = findViewById(R.id.container_no_foud);
+        progressBar.setVisibility(View.GONE);
     }
 }

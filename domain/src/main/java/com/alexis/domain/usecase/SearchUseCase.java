@@ -13,11 +13,9 @@ public class SearchUseCase {
         this.searchRepository = searchRepository;
     }
     public void searchItem(String item, Consumer<ResponseModel> onSuccess, Consumer<Throwable> onError)  {
-
         if(item.isEmpty()){
             throw new BusinessException(BusinessException.MESSAGE_ITEM_EMPTY_OR_NULL);
         }
-
         searchRepository.searchItem(item,onSuccess,onError);
     }
 }

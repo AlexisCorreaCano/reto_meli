@@ -19,7 +19,6 @@ public class SearchApi implements SearchRepository {
         this.retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
         this.searchService = retrofit.create(SearchService.class);
     }
-
     @Override
     public void searchItem(String item, Consumer<ResponseModel> onSuccess, Consumer<Throwable> onError) {
         try{
@@ -37,7 +36,6 @@ public class SearchApi implements SearchRepository {
                             onError.accept(new Exception("Hubo un error al obtener la información\n"));
                             break;
                     }
-
                 }
                 @Override
                 public void onFailure(Call<ResponseModel> call, Throwable t) {

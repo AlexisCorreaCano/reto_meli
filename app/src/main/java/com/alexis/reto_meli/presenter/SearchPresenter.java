@@ -5,8 +5,6 @@ import com.alexis.domain.usecase.SearchUseCase;
 import com.alexis.reto_meli.view.SearchView;
 
 import javax.inject.Inject;
-
-
 public class SearchPresenter {
     private final SearchUseCase searchUseCase;
     private SearchView searchView;
