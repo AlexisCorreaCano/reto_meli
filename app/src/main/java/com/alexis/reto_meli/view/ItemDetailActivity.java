@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.alexis.domain.model.Result;
 import com.alexis.reto_meli.R;
 import com.google.gson.Gson;
+import com.microsoft.appcenter.crashes.Crashes;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -49,6 +50,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             loadData();
         }catch (Exception e){
             showError("En el momento nuestra aplicación está teniendo problemas, por favor intenta más tarde");
+            Crashes.trackError(e);
         }
     }
 

@@ -3,6 +3,7 @@ package com.alexis.reto_meli.presenter;
 import com.alexis.domain.shared.BusinessException;
 import com.alexis.domain.usecase.SearchUseCase;
 import com.alexis.reto_meli.view.SearchView;
+import com.microsoft.appcenter.crashes.Crashes;
 
 import javax.inject.Inject;
 public class SearchPresenter {
@@ -29,8 +30,10 @@ public class SearchPresenter {
             });
         }catch (BusinessException e){
             searchView.showError("Debes diligenciar el campo con el nombre del objeto a buscar");
+            Crashes.trackError(e);
         }catch (Exception e){
             searchView.showError("En el momento nuestra aplicación está teniendo problemas, por favor intenta más tarde");
+            Crashes.trackError(e);
         }
     }
 }
