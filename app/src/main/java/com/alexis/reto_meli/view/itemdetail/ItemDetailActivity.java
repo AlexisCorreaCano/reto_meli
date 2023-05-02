@@ -29,6 +29,8 @@ import java.text.NumberFormat;
 import javax.inject.Inject;
 
 public class ItemDetailActivity extends AppCompatActivity {
+    @Inject
+    ErrorAlertBuild errorAlertBuild;
     private ImageView iv_image;
     private TextView tv_sold_item;
     private TextView tv_original_price;
@@ -41,8 +43,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     private TextView tv_offer;
     private ListView lv_attributes;
     private Result result;
-    @Inject
-    ErrorAlertBuild errorAlertBuild;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

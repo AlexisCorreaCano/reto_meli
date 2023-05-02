@@ -42,17 +42,18 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class SearchActivity extends AppCompatActivity implements SearchView, View.OnClickListener {
 
-    private final Gson gson = new Gson();
     @Inject
     SearchPresenter searchPresenter;
+    @Inject
+    ErrorAlertBuild errorAlertBuild;
     private EditText et_search;
     private RecyclerView rv_list_item;
     private ItemsAdapter itemsAdapter;
     private ProgressBar progressBar;
     private ArrayList<Result> results;
     private LinearLayout containerNoFound;
-    @Inject
-    ErrorAlertBuild errorAlertBuild;
+    private final Gson gson = new Gson();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
