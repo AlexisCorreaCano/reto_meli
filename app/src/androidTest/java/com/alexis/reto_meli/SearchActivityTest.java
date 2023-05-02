@@ -4,7 +4,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 
-import com.alexis.reto_meli.view.MainActivity;
+import com.alexis.reto_meli.view.search.SearchActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,11 +15,11 @@ import java.util.concurrent.TimeUnit;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 @LargeTest
-public class MainActivityTest extends BaseTest{
+public class SearchActivityTest extends BaseTest{
     CountDownLatch latch = new CountDownLatch(1);
     @Rule
-    public ActivityScenarioRule<MainActivity> activityTestRule =
-            new ActivityScenarioRule<MainActivity>(MainActivity.class);
+    public ActivityScenarioRule<SearchActivity> activityTestRule =
+            new ActivityScenarioRule<SearchActivity>(SearchActivity.class);
 
     @Test
     public void searchItem_itemNameOk_shouldNoDisplayError() throws InterruptedException {

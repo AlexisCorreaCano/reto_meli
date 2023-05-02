@@ -1,4 +1,4 @@
-package com.alexis.reto_meli.view;
+package com.alexis.reto_meli.view.itemdetail;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;

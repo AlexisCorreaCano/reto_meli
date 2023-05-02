@@ -1,4 +1,4 @@
-package com.alexis.reto_meli.view;
+package com.alexis.reto_meli.view.search;
 
 import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING;
 
@@ -28,6 +28,7 @@ import com.alexis.reto_meli.R;
 import com.alexis.reto_meli.presenter.SearchPresenter;
 import com.alexis.reto_meli.view.adapter.search.ItemsAdapter;
 import com.alexis.reto_meli.view.adapter.search.OnItemClickListener;
+import com.alexis.reto_meli.view.itemdetail.ItemDetailActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -38,7 +39,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MainActivity extends AppCompatActivity implements SearchView, View.OnClickListener {
+public class SearchActivity extends AppCompatActivity implements SearchView, View.OnClickListener {
 
     private final Gson gson = new Gson();
     @Inject
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements SearchView, View.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_search);
         searchPresenter.setView(this);
         loadView();
         loadEvent();
@@ -72,10 +73,10 @@ public class MainActivity extends AppCompatActivity implements SearchView, View.
     @Override
     public void showError(String error) {
         hideLoading();
-        View alertCustomView = LayoutInflater.from(MainActivity.this).inflate(R.layout.custom_alert_view,null);
+        View alertCustomView = LayoutInflater.from(SearchActivity.this).inflate(R.layout.custom_alert_view,null);
         TextView tv_error_message = alertCustomView.findViewById(R.id.tv_error_message);
         tv_error_message.setText(error);
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(SearchActivity.this);
 
         alertDialog.setView(alertCustomView);
         Button btn_close = (Button) alertCustomView.findViewById(R.id.btn_close);
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements SearchView, View.
         itemsAdapter = new ItemsAdapter(results, new OnItemClickListener() {
             @Override
             public void onItemClick(Result item) {
-                Intent intent = new Intent(MainActivity.this,ItemDetailActivity.class);
+                Intent intent = new Intent(SearchActivity.this, ItemDetailActivity.class);
 
                 String json = gson.toJson(item);
                 intent.putExtra("item",json);

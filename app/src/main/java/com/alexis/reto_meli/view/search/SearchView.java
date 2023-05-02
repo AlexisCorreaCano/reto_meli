@@ -1,4 +1,4 @@
-package com.alexis.reto_meli.view;
+package com.alexis.reto_meli.view.search;
 
 import com.alexis.domain.model.ResponseModel;
 import com.alexis.domain.model.Result;

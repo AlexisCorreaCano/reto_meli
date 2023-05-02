@@ -2,7 +2,7 @@ package com.alexis.reto_meli.presenter;
 
 import com.alexis.domain.shared.BusinessException;
 import com.alexis.domain.usecase.SearchUseCase;
-import com.alexis.reto_meli.view.SearchView;
+import com.alexis.reto_meli.view.search.SearchView;
 import com.microsoft.appcenter.crashes.Crashes;
 
 import javax.inject.Inject;
