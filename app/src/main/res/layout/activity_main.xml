@@ -42,28 +42,28 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:background="@color/yellow"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/yellow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
             android:id="@+id/et_search"
-            android:elevation="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
             android:layout_margin="20dp"
             android:drawablePadding="10dp"
-            android:textSize="16dp"
             android:paddingLeft="10dp"
-            android:singleLine="true"
             android:hint="Buscar en Mercado libre"
+            android:textSize="16dp"
+            android:elevation="2dp"
+            android:singleLine="true"
             android:drawableStart="@drawable/baseline_search_24"
             android:background="@drawable/custom_input_background"
             android:imeOptions="actionSearch"
-            android:imeActionId="1"
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:imeActionId="1" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

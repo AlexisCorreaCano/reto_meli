@@ -6,19 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".view.ItemDetailActivity">
     <ScrollView
-        android:padding="20dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="20dp">
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
             <TextView
                 android:id="@+id/tv_sold_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/gray"
-                android:text="0 vendidos"/>
+                android:textColor="@color/gray"/>
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
@@ -26,7 +25,7 @@
                 android:layout_marginTop="8dp"
                 android:textColor="@color/black"
                 android:textSize="18dp"
-                android:text="titulo"
+
                 />
             <ImageView
                 android:id="@+id/iv_image"
@@ -39,7 +38,6 @@
                 android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="3000"
                 android:textColor="@color/gray" />
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -50,7 +48,6 @@
                     android:id="@+id/tv_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="2300"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:textSize="24dp"/>
@@ -60,7 +57,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:text="13% OFF"
                     android:textColor="@color/green"
                     android:textSize="18dp"/>
             </LinearLayout>
@@ -73,27 +69,25 @@
                 android:textColor="@color/green"
                 android:text="Envío gratis a nivel nacional"/>
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_marginTop="8dp">
                 <TextView
-                    android:text="Vendido por"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="Vendido por"/>
                 <TextView
                     android:id="@+id/tv_seller"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:text="STUDIO"/>
+                    android:layout_marginLeft="8dp" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_sold_seller"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="+500 ventas"/>
+                android:layout_height="wrap_content" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
