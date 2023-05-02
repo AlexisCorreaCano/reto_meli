@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements SearchView, View.
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
-                if(event.getKeyCode() == KeyEvent.KEYCODE_ENTER){
+                if(actionId == 3 || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER ) ){
                     searchPresenter.searchItem(v.getText().toString());
                     handled = true;
 

@@ -10,6 +10,7 @@
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:indeterminateTint="@color/yellow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,6 +18,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
+        android:background="@color/yellow"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,9 +27,19 @@
 
         <EditText
             android:id="@+id/et_search"
+            android:elevation="2dp"
+            android:layout_margin="20dp"
+            android:drawablePadding="10dp"
+            android:textSize="16dp"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:hint="Buscar en Mercado libre"
+            android:drawableStart="@drawable/baseline_search_24"
+            android:background="@drawable/custom_input_background"
             android:imeOptions="actionSearch"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content" />
+            android:imeActionId="1"
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
