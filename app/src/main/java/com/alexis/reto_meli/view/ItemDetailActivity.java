@@ -12,10 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.alexis.domain.model.Result;
 import com.alexis.reto_meli.R;
+import com.alexis.reto_meli.view.adapter.itemdetail.AttributesAdapter;
 import com.google.gson.Gson;
 import com.microsoft.appcenter.crashes.Crashes;
 import com.squareup.picasso.Picasso;
@@ -34,6 +36,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     private TextView tv_sold_seller;
     private TextView tv_available_quantity;
     private TextView tv_offer;
+    private ListView lv_attributes;
     private Result result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +89,8 @@ public class ItemDetailActivity extends AppCompatActivity {
         tv_seller.setText(result.seller.nickname);
         tv_sold_seller.setText(String.format("+%d Ventas",result.seller.seller_reputation.transactions.completed));
         tv_available_quantity.setText(String.valueOf(result.available_quantity));
+
+        lv_attributes.setAdapter(new AttributesAdapter(this,result.attributes));
     }
 
     private void loadView() {
@@ -99,6 +104,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         tv_available_quantity = findViewById(R.id.tv_available_quantity);
         tv_original_price = findViewById(R.id.tv_original_price);
         tv_offer = findViewById(R.id.tv_offer);
+        lv_attributes = findViewById(R.id.lv_attributes);
     }
 
     private void showError(String message){

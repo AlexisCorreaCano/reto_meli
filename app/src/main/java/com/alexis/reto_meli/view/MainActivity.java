@@ -26,8 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alexis.domain.model.Result;
 import com.alexis.reto_meli.R;
 import com.alexis.reto_meli.presenter.SearchPresenter;
-import com.alexis.reto_meli.view.adapter.ItemsAdapter;
-import com.alexis.reto_meli.view.adapter.OnItemClickListener;
+import com.alexis.reto_meli.view.adapter.search.ItemsAdapter;
+import com.alexis.reto_meli.view.adapter.search.OnItemClickListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

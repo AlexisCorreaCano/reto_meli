@@ -1,4 +1,4 @@
-package com.alexis.reto_meli.view.adapter;
+package com.alexis.reto_meli.view.adapter.search;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +14,6 @@ import com.alexis.reto_meli.R;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
