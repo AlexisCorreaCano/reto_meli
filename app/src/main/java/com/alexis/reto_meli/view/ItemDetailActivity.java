@@ -3,6 +3,7 @@ package com.alexis.reto_meli.view;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,9 +14,20 @@ import com.alexis.reto_meli.R;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 public class ItemDetailActivity extends AppCompatActivity {
     private ImageView iv_image;
-    private TextView tv_sold_item,tv_title,tv_price,tv_free_shipping,tv_seller,tv_sold_seller,tv_avalible_quantity;
+    private TextView tv_sold_item;
+    private TextView tv_original_price;
+    private TextView tv_title;
+    private TextView tv_price;
+    private TextView tv_free_shipping;
+    private TextView tv_seller;
+    private TextView tv_sold_seller;
+    private TextView tv_available_quantity;
+    private TextView tv_offer;
     private Result result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,21 +45,41 @@ public class ItemDetailActivity extends AppCompatActivity {
         }catch (Exception e){
             showError("En el momento nuestra aplicación está teniendo problemas, por favor intenta más tarde");
         }
-
     }
 
     private void loadData() {
+        NumberFormat numberFormat = new DecimalFormat("#,###");
+
+
+        tv_sold_item.setText(String.format("%d Vendidos",result.sold_quantity));
+        tv_title.setText(result.title);
+
+
         Picasso.get().load(result.thumbnail)
                 .placeholder(R.drawable.imagen)
                 .error(R.drawable.error)
                 .into(iv_image);
-        tv_sold_item.setText(String.format("%d Vendidos",result.sold_quantity));
-        tv_title.setText(result.title);
-        tv_price.setText(String.format("$ %f",result.price));
+
+        if(result.original_price != null){
+            String originalPriceS = String.format("$ %s ",numberFormat.format((Double)result.original_price));
+            tv_original_price.setText(originalPriceS);
+            tv_original_price.setPaintFlags(tv_original_price.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
+            tv_original_price.setVisibility(View.VISIBLE);
+
+            Double originalPriceD = (Double) result.original_price;
+            Double price = result.price;
+            double offerPercentage = 100-((price * 100)/originalPriceD);
+            if(offerPercentage > 0){
+                tv_offer.setText(String.format("%d%% OFF",(int)offerPercentage));
+                tv_offer.setVisibility(View.VISIBLE);
+            }
+        }
+        String price = String.format("$ %s",numberFormat.format((Double)result.price));
+        tv_price.setText(price);
         tv_free_shipping.setVisibility(result.shipping.free_shipping == true? View.VISIBLE:View.GONE);
         tv_seller.setText(result.seller.nickname);
         tv_sold_seller.setText(String.format("+%d Ventas",result.seller.seller_reputation.transactions.completed));
-        tv_avalible_quantity.setText(String.format("%d disponible",result.available_quantity) );
+        tv_available_quantity.setText(result.available_quantity);
     }
 
     private void loadView() {
@@ -58,7 +90,9 @@ public class ItemDetailActivity extends AppCompatActivity {
         tv_free_shipping = findViewById(R.id.tv_free_shipping);
         tv_seller = findViewById(R.id.tv_seller);
         tv_sold_seller = findViewById(R.id.tv_sold_seller);
-        tv_avalible_quantity = findViewById(R.id.tv_available_quantity);
+        tv_available_quantity = findViewById(R.id.tv_available_quantity);
+        tv_original_price = findViewById(R.id.tv_original_price);
+        tv_offer = findViewById(R.id.tv_offer);
     }
 
     private void showError(String message){

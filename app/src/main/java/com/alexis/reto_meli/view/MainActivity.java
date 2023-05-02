@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements SearchView, View.
     private ProgressBar progressBar;
     private ArrayList<Result> results;
 
+    private LinearLayout containerNoFound;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements SearchView, View.
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
                 if(actionId == 3 || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER ) ){
+                    containerNoFound.setVisibility(View.GONE);
                     searchPresenter.searchItem(v.getText().toString());
                     handled = true;
 
@@ -92,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements SearchView, View.
         et_search=findViewById(R.id.et_search);
         rv_list_item=findViewById(R.id.rv_list_item);
         progressBar = findViewById(R.id.progress_bar);
+        containerNoFound = findViewById(R.id.container_no_foud);
         progressBar.setVisibility(View.GONE);
     }
 
@@ -130,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements SearchView, View.
     @Override
     public void showData(ArrayList<Result> results) {
         this.results = results;
+
         itemsAdapter = new ItemsAdapter(results, new OnItemClickListener() {
             @Override
             public void onItemClick(Result item) {
@@ -142,6 +148,9 @@ public class MainActivity extends AppCompatActivity implements SearchView, View.
         });
         rv_list_item.setAdapter(itemsAdapter);
         rv_list_item.setLayoutManager(new LinearLayoutManager(this));
+        if(results.isEmpty()){
+            containerNoFound.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
