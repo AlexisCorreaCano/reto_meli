@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements SearchView, View.
     public void showError(String error) {
         hideLoading();
         View alertCustomView = LayoutInflater.from(MainActivity.this).inflate(R.layout.custom_alert_view,null);
+        TextView tv_error_message = alertCustomView.findViewById(R.id.tv_error_message);
+        tv_error_message.setText(error);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
 
         alertDialog.setView(alertCustomView);
@@ -171,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements SearchView, View.
         et_search=findViewById(R.id.et_search);
         rv_list_item=findViewById(R.id.rv_list_item);
         progressBar = findViewById(R.id.progress_bar);
-        containerNoFound = findViewById(R.id.container_no_foud);
+        containerNoFound = findViewById(R.id.container_no_found);
         progressBar.setVisibility(View.GONE);
     }
 }

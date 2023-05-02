@@ -16,19 +16,81 @@ import java.util.concurrent.TimeUnit;
 @RunWith(AndroidJUnit4ClassRunner.class)
 @LargeTest
 public class MainActivityTest extends BaseTest{
-
+    CountDownLatch latch = new CountDownLatch(1);
     @Rule
     public ActivityScenarioRule<MainActivity> activityTestRule =
             new ActivityScenarioRule<MainActivity>(MainActivity.class);
 
     @Test
-    public void searchItem_itemNameOk_shouldListItems() throws InterruptedException {
-        CountDownLatch latch = new CountDownLatch(1);
-        enterText(R.id.et_search,"cama");
-        enterClick(R.id.et_search);
+    public void searchItem_itemNameOk_shouldNoDisplayError() throws InterruptedException {
 
+        //Arrange
+        String itemToSearch = "cama";
+
+        //Act
+        enterText(R.id.et_search,itemToSearch);
+        enterClick(R.id.et_search);
         latch.await(5, TimeUnit.SECONDS);
 
-        verifyDisplay(R.id.rv_list_item);
+        //Assert
+        verifyNoDisplay(R.id.progress_bar);
+        verifyNoDisplay(R.id.container_no_found);
+    }
+
+    @Test
+    public void searchItem_itemNameOk_shouldDisplayProgressBar() throws InterruptedException {
+        //Arrange
+        String itemToSearch = "cama";
+
+        //Act
+        enterText(R.id.et_search,itemToSearch);
+        enterClick(R.id.et_search);
+        latch.await(1, TimeUnit.SECONDS);
+
+        //Assert
+        verifyDisplay(R.id.progress_bar);
+    }
+
+    @Test
+    public void searchItem_itemNameBad_shouldDisplayNoFound() throws InterruptedException {
+        //Arrange
+        String itemToSearch = "sdfgsdfgsdfgdsgsdf";
+
+        //Act
+        enterText(R.id.et_search,itemToSearch);
+        enterClick(R.id.et_search);
+        latch.await(5, TimeUnit.SECONDS);
+
+        //Assert
+        verifyDisplay(R.id.container_no_found);
+    }
+    @Test
+    public void searchItem_itemNameOk_shouldShowDetail() throws InterruptedException {
+        //Arrange
+        String itemToSearch = "cama";
+
+        //Act
+        enterText(R.id.et_search,"cama");
+        enterClick(R.id.et_search);
+        latch.await(5, TimeUnit.SECONDS);
+        selectItem(R.id.rv_list_item,0);
+        latch.await(1, TimeUnit.SECONDS);
+
+        //Assert
+        verifyDisplay(R.id.tv_title);
+    }
+
+    @Test
+    public void searchItem_withoutItemName_shouldShowError() throws InterruptedException {
+        //Arrange
+        String itemToSearch = "cama";
+
+        //Act
+        enterText(R.id.et_search,"");
+        enterClick(R.id.et_search);
+        latch.await(2, TimeUnit.SECONDS);
+
+        //Assert
+        verifyDisplay(R.id.tv_error_message);
     }
 }

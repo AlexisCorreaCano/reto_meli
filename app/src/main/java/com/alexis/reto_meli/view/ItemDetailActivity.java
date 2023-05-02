@@ -83,7 +83,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         tv_free_shipping.setVisibility(result.shipping.free_shipping == true? View.VISIBLE:View.GONE);
         tv_seller.setText(result.seller.nickname);
         tv_sold_seller.setText(String.format("+%d Ventas",result.seller.seller_reputation.transactions.completed));
-        tv_available_quantity.setText(result.available_quantity);
+        tv_available_quantity.setText(String.valueOf(result.available_quantity));
     }
 
     private void loadView() {
@@ -102,7 +102,8 @@ public class ItemDetailActivity extends AppCompatActivity {
     private void showError(String message){
         View alertCustomView = LayoutInflater.from(ItemDetailActivity.this).inflate(R.layout.custom_alert_view,null);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(ItemDetailActivity.this);
-
+        TextView tv_error_message = alertCustomView.findViewById(R.id.tv_error_message);
+        tv_error_message.setText(message);
         alertDialog.setView(alertCustomView);
         Button btn_close = (Button) alertCustomView.findViewById(R.id.btn_close);
 
